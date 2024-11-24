@@ -1,12 +1,12 @@
 const cards = [
-    '🐶', '🐶',
-    '🐱', '🐱',
-    '🐰', '🐰',
-    '🐭', '🐭',
-    '🐯', '🐯',
-    '🐷', '🐷',
-    '🐺', '🐺',
-    '🐸', '🐸'
+    'img/characters/scorpion.png', 'img/characters/scorpion.png',
+    'img/characters/jax.png', 'img/characters/jax.png',
+    'img/characters/shao kahn.png', 'img/characters/shao kahn.png',
+    'img/characters/kabal.png', 'img/characters/kabal.png',
+    'img/characters/rambo.png', 'img/characters/rambo.png',
+    'img/characters/noob saibot.png', 'img/characters/noob saibot.png',
+    'img/characters/mileena.png', 'img/characters/mileena.png',
+    'img/characters/nightwolf.png', 'img/characters/nightwolf.png'
 ];
 
 let firstCard = null;
@@ -23,57 +23,70 @@ function shuffle(array) {
 function createBoard() {
     const gameBoard = document.querySelector('.game-board');
     shuffle(cards);
-    cards.forEach(cards => {
+    cards.forEach(card => {
         const cardElement = document.createElement('div');
         cardElement.classList.add('card');
-        cardElement.dataset.icon = cards;
+        cardElement.dataset.icon = card;
+
+        // Imagen oculta por defecto
+        const cardImage = document.createElement('img');
+        cardImage.src = card;
+        cardImage.alt = 'Carta';
+        cardImage.classList.add('hidden');
+
+        cardElement.appendChild(cardImage);
         cardElement.addEventListener('click', flipCard);
         gameBoard.appendChild(cardElement);
     });
 }
 
-function flipCard(){
-    if(lockBoard) return;
-    if (this=== firstCard)return;
+function flipCard() {
+    if (lockBoard) return;
+    if (this === firstCard) return;
     this.classList.add('flipped');
-    this.textContent= this.dataset.icon;
-    if(!firstCard){
-        firstCard= this;
+
+    const cardImage = this.querySelector('img');
+    cardImage.classList.remove('hidden');
+
+    if (!firstCard) {
+        firstCard = this;
         return;
     }
-    secondCard=this;
+    secondCard = this;
     checkForMatch();
 }
 
-function checkForMatch(){
-    if(firstCard.dataset.icon===secondCard.dataset.icon){
+function unflipCard() {
+    lockBoard = true;
+    setTimeout(() => {
+        firstCard.querySelector('img').classList.add('hidden');
+        secondCard.querySelector('img').classList.add('hidden');
+        firstCard.classList.remove('flipped');
+        secondCard.classList.remove('flipped');
+        resetBoard();
+    }, 1000);
+}
+
+function checkForMatch() {
+    if (firstCard.dataset.icon === secondCard.dataset.icon) {
         disableCard();
-    }else{
+    } else {
         unflipCard();
     }
 }
-function disableCard(){
-    firstCard.removeEventListener('click',flipCard);
-    secondCard.removeEventListener('click',flipCard);
+function disableCard() {
+    firstCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
     resetBoard();
 }
-function unflipCard(){
-    lockBoard = true;
-    setTimeout(()=>{
-        firstCard.classList.remove('flipped');
-        secondCard.classList.remove('flipped');
-        firstCard.textContent='';
-        secondCard.textContent='';
-        resetBoard();
-    },1000);
+
+
+function resetBoard() {
+    [firstCard, secondCard, lockBoard] = [null, null, false]
 }
 
-function resetBoard(){
-    [firstCard, secondCard, lockBoard]=[null,null, false]
-}
-
-document.getElementById('reset-button').addEventListener('click',()=>{
-    document.querySelector('.game-board').innerHTML='';
+document.getElementById('reset-button').addEventListener('click', () => {
+    document.querySelector('.game-board').innerHTML = '';
     createBoard();
 });
 
