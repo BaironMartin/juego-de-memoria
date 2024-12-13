@@ -1,12 +1,12 @@
 const cards = [
-    'img/characters/scorpion.png', 'img/characters/scorpion.png',
-    'img/characters/jax.png', 'img/characters/jax.png',
-    'img/characters/shao kahn.png', 'img/characters/shao kahn.png',
-    'img/characters/kabal.png', 'img/characters/kabal.png',
-    'img/characters/rambo.png', 'img/characters/rambo.png',
-    'img/characters/noob saibot.png', 'img/characters/noob saibot.png',
-    'img/characters/mileena.png', 'img/characters/mileena.png',
-    'img/characters/nightwolf.png', 'img/characters/nightwolf.png'
+    'img/characters/scorpion.webp', 'img/characters/scorpion.webp',
+    'img/characters/jax.webp', 'img/characters/jax.webp',
+    'img/characters/shao kahn.webp', 'img/characters/shao kahn.webp',
+    'img/characters/kabal.webp', 'img/characters/kabal.webp',
+    'img/characters/rambo.webp', 'img/characters/rambo.webp',
+    'img/characters/noob saibot.webp', 'img/characters/noob saibot.webp',
+    'img/characters/mileena.webp', 'img/characters/mileena.webp',
+    'img/characters/nightwolf.webp', 'img/characters/nightwolf.webp'
 ];
 
 let firstCard = null;
